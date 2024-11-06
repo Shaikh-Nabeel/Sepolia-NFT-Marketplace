@@ -8,7 +8,7 @@ import NFTModal from "./NFTDetail";
 const LoadImage = ({ tokenId, price, owner, isSold, abi, contractAddress }) => {
 
     const [isLoadingDone, setLoadingDone] = useState(false);
-    const pinataApiKey = "dNts5G2asM-zFZp7lr0RDIe0KhogiVbHbn4KuPrgb8OUVWkZ1A0S0r5ktk9rSuq5";
+    const pinataApiKey = import.meta.env.VITE_PINATA_API_KEY;
     const [nftObj, setNftObj] = useState({});
     const formatPrice = ethers.formatEther(price).slice(0, 7);
     const usdPrice = (useEthToUsd() * formatPrice).toFixed(2);
