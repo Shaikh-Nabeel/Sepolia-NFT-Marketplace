@@ -23,12 +23,9 @@ const LoadImage = ({ tokenId, price, owner, isSold, abi, contractAddress }) => {
 
     useEffect(() => {
         if (NFT != null) {
-            var infuraURL = NFT.replace("https://ipfs.io", "https://infura-ipfs.io");
-            console.log(infuraURL);
-            console.log(pinataApiKey);
-            infuraURL = "https://pink-dear-beetle-544.mypinata.cloud/ipfs/QmebJrUK2n7y3swdrLJxTTPy3WgryEhgXC1t8TDFBqSvRi?pinataGatewayToken="+pinataApiKey;
+            var infuraURL = NFT + "?pinataGatewayToken="+pinataApiKey;
             fetch(`${infuraURL}`, {
-                method: 'GET',
+                method: 'GET'
             })
                 .then((response) => {
                     if (!response.ok) {
@@ -40,11 +37,10 @@ const LoadImage = ({ tokenId, price, owner, isSold, abi, contractAddress }) => {
                     return response.json();
                 })
                 .then((data) => {
-                    console.log( "responsee:::::: " + data);
                     const image = data.image + "?pinataGatewayToken="+ pinataApiKey;
                     const name = data.name;
                     const description = data.description;
-                    setNftObj({ image, name, description });
+                    setNftObj({ image, name, description, isSold });
                     setLoadingDone(true);
                 })
                 .catch((error) => {
@@ -55,11 +51,11 @@ const LoadImage = ({ tokenId, price, owner, isSold, abi, contractAddress }) => {
 
     if (!isLoadingDone) {
         return (
-            <div className="w-64 h-64 overflow-hidden flex border-2 bg-[#012a4a] border-[#122d41] shadow-sm m-4 rounded-lg items-center justify-center animate-pulse">
+            <div className="w-64 h-72 overflow-hidden flex border-2 bg-[#012a4a] border-[#122d41] shadow-sm m-4 rounded-lg items-center justify-center animate-pulse">
                 <ThreeDot color="#2A6F97" size="medium" text="" textColor="" /> </div>
         );
     }
-    if (error || Object.keys(nftObj).length === 0) return <div className="w-64 h-64 overflow-hidden flex-col border-2 border-[#012A4A] shadow-sm m-4 rounded-lg"> <ThreeDot color="#2A6F97" size="medium" text="" textColor="" /> </div>;
+    if (error || Object.keys(nftObj).length === 0) return <div className="w-64 h-72 overflow-hidden flex-col border-2 border-[#012A4A] shadow-sm m-4 rounded-lg"> <ThreeDot color="#2A6F97" size="medium" text="" textColor="" /> </div>;
 
     return (
         <>
@@ -73,12 +69,12 @@ const LoadImage = ({ tokenId, price, owner, isSold, abi, contractAddress }) => {
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
             />
-            <div className="w-64 h-fit overflow-hidden flex-col border-2 border-[#012A4A] shadow-md m-4 rounded-lg transform transition duration-300 hover:scale-105 hover:shadow-lg">
+            <div className="w-72 h-fit overflow-hidden flex-col border-2 border-[#012A4A] shadow-md m-4 rounded-lg transform transition duration-300 hover:scale-105 hover:shadow-lg">
                 <img src={nftObj.image} alt="NFT Image" className="w-full h-full object-cover" />
 
                 {isSold && (
                     <div className="absolute inset-0 flex justify-center items-center">
-                        <span className="text-red-500 text-[24px] font-bold transform rotate-[-45deg] opacity-70 border-2 border-red-500 px-4 py-1">
+                        <span className="text-red-500 text-[35px] font-bold transform rotate-[-45deg] opacity-70 border-4 border-red-500 px-4 py-1">
                             SOLD
                         </span>
                     </div>
@@ -96,8 +92,8 @@ const LoadImage = ({ tokenId, price, owner, isSold, abi, contractAddress }) => {
                         </div>
                     </div>
 
-                    <div>
-                        {usdPrice} USD
+                    <div className="text-green-500">
+                        ${usdPrice}
                     </div>
                 </div>
             </div>

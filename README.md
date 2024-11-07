@@ -1,8 +1,8 @@
-# React + Vite
+# Sepolia NFT Marketplace
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Steps to mint NFT
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Upload image of pinata and get CID of image
+2. paste your cide https://gateway.pinata.cloud/ipfs/{CID}
+3. Create metadata.json file and paste this url as key image's value.
+4. Mint NFT pass the uri https://gateway.pinata.cloud/ipfs/{CID_OF_METADATA.JSON}

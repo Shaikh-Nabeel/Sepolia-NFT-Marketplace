@@ -18,7 +18,7 @@ const Navbar = () => {
                             fill="#8C8C8C" d="m256 41v158l-132 60m0 25l132 78v107" /><path
                             fill="#141414" d="m256 199v138l131-78" /><path
                             fill="#393939" d="m124 259l132-60v138" /></svg>
-                    <div className="text-sm md:text-3xl font-bold">Sepolia NFT Marketplace</div>
+                    <div className="text-sm md:text-3xl font-bold w-[120px] md:w-fit">Sepolia NFT Marketplace</div>
                 </div>
                     <w3m-button />
             </div>

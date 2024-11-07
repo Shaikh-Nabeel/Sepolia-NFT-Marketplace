@@ -844,11 +844,6 @@ const abi = [
 
 function App() {
 	const [count, setCount] = useState(0)
-	// const [result, setResult] = useState(null);
-
-	// useEffect(() =>{
-
-	// }, []);
 
 	const { data: list, isLoading, error } = useReadContract({
 		abi: abi,
@@ -856,13 +851,16 @@ function App() {
 		functionName: 'getNFTs',
 		args: [count, 20],
 	})
-	if (list != null) {
 
-		console.log(list);
-	}
-
-	if (isLoading) return <p>Loading NFTs...</p>;
-	if (error) return <p>Error loading NFTs: {error.message}</p>;
+	if (isLoading || error || list == undefined) return <p className='h-[98vh] w-full'><div className="flex justify-center items-center h-[98vh] gap-2">
+		<div className="w-5 h-5 rounded-full animate-pulse bg-blue-600" />
+		<div className="w-5 h-5 rounded-full animate-pulse bg-blue-600" />
+		<div className="w-5 h-5 rounded-full animate-pulse bg-blue-600" />
+	</div>
+	</p>;
+	if (error || list == undefined) return <p className='min-h-screen'> <div className='w-full font-extrabold text-center text-2xl text-white mt-10'>
+		Welcome to Sepolia NFT Marketplace
+	</div> </p>;
 
 	return (
 		<>
@@ -870,8 +868,10 @@ function App() {
 				<div className='w-full font-extrabold text-center text-2xl text-white mt-10'>
 					Welcome to Sepolia NFT Marketplace
 				</div>
-				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-2 min-h-screen">
+				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mt-2 min-h-screen">
+					{console.log(list)}
 					{list.map((nft) => (
+
 						<div key={nft.tokenId} className="flex justify-center">
 							<LoadImage tokenId={nft.tokenId} price={nft.price} owner={nft.owner} isSold={nft.isSold} abi={abi} contractAddress={contractAddress} />
 						</div>
