@@ -69,8 +69,8 @@ const NFTModal = ({ nft, price, tokenId, contractAddress, owner, abi, isOpen, on
                 position: 'bottom-right',
                 autoClose: 10000,
                 hideProgressBar: false,
-                onClick: function() {
-                    window.open("https://sepolia.etherscan.io/tx/"+data , '_blank');
+                onClick: function () {
+                    window.open("https://sepolia.etherscan.io/tx/" + data, '_blank');
                 }
             });
             setHash(data);
@@ -116,106 +116,133 @@ const NFTModal = ({ nft, price, tokenId, contractAddress, owner, abi, isOpen, on
 
 
     return (
+
+
         <div className="fixed inset-0 flex items-center justify-center bg-slate-600 bg-opacity-50 backdrop-blur-sm z-50">
-            <div className="bg-slate-800 w-[90%] md:w-1/2 rounded-xl shadow-lg flex-row p-5 relative">
+            <div className="bg-slate-800 w-[90%] max-w-lg md:max-w-2xl rounded-xl shadow-lg p-5 relative mx-2">
 
                 <RxCross1 className="absolute top-4 right-4 text-white hover:text-gray-100 cursor-pointer" onClick={onClose} />
-                <div className="flex w-full">
-                    <div className="w-72 mr-4">
+                <div className="flex flex-col md:flex-row w-full">
+
+                    {/* NFT Image */}
+                    <div className="w-full md:w-72 mb-4 md:mb-0 md:mr-4">
                         <img
                             src={nft.image}
                             alt="NFT"
-                            className="w-full h-full rounded-lg object-cover"
+                            className="w-full h-auto md:h-full rounded-lg object-cover"
                         />
                     </div>
+
+                    {/* NFT Details */}
                     <div className="flex-1 text-left">
-                        <h2 className="text-3xl font-semibold text-white mb-2">{nft.name}</h2>
-                        <p className="text-white mb-5">{nft.description}</p>
-                        <div className="text-white font-semibold space-y-3">
-                            <div className="flex justify-between items-center">
-                                <span className="mr-2"> Owner: </span>
+                        <h2 className="text-2xl md:text-3xl font-semibold text-white mb-2">{nft.name}</h2>
+                        <p className="text-white text-sm md:text-base mb-5">{nft.description}</p>
+
+                        {/* NFT Metadata */}
+                        <div className="text-white font-semibold space-y-3 text-sm md:text-base">
+
+                            {/* Owner */}
+                            <div className="flex flex-row justify-between items-center">
+                                <span className="mr-2">Owner:</span>
                                 <span
                                     title="Copy"
                                     onClick={() => handleCopy(owner)}
-                                    className="hover:bg-slate-800 cursor-pointer text-[12px] text-blue-500 font-normal border rounded-lg px-2 py-1 bg-slate-700"
+                                    className="hover:bg-slate-800 cursor-pointer text-blue-500 font-normal border rounded-lg px-2 py-1 bg-slate-700 md:mt-0"
                                 >
                                     {owner.substring(0, 5)}...{owner.substring(owner.length - 5)}
                                 </span>
                             </div>
 
-                            <div className="flex justify-between items-center">
-                                <span className="mr-2"> Contract Address: </span>
+                            {/* Contract Address */}
+                            <div className="flex flex-row justify-between items-center">
+                                <span className="mr-2">Contract Address:</span>
                                 <span
                                     title="Copy"
                                     onClick={() => handleCopy(contractAddress)}
-                                    className="hover:bg-slate-800 cursor-pointer text-[12px] text-blue-500 font-normal border rounded-lg px-2 py-1 bg-slate-700"
+                                    className="hover:bg-slate-800 cursor-pointer text-blue-500 font-normal border rounded-lg px-2 py-1 bg-slate-700 md:mt-0"
                                 >
                                     {contractAddress.substring(0, 5)}...{contractAddress.substring(contractAddress.length - 5)}
                                 </span>
                             </div>
 
-                            <div className="flex justify-between items-center">
-                                <span className="mr-2"> Token Id: </span>
+                            {/* Token ID */}
+                            <div className="flex flex-row justify-between items-center">
+                                <span className="mr-2">Token Id:</span>
                                 <span
                                     title="Copy"
                                     onClick={() => handleCopy(tokenId)}
-                                    className="hover:bg-slate-800 cursor-pointer text-[12px] text-blue-500 font-normal border rounded-lg px-2 py-1 bg-slate-700"
+                                    className="hover:bg-slate-800 cursor-pointer text-blue-500 font-normal border rounded-lg px-2 py-1 bg-slate-700 md:mt-0"
                                 >
                                     {String(tokenId)}
                                 </span>
                             </div>
-                            <div className="flex justify-between items-center">
-                                <span className="mr-2"> Chain </span>
-                                <span className="font-normal">
-                                    Sepolia
-                                </span>
+
+                            {/* Chain and Token Standard */}
+                            <div className="flex justify-between items-center md:mt-2">
+                                <span className="mr-2">Chain:</span>
+                                <span className="font-normal">Sepolia</span>
                             </div>
-                            <div className="flex justify-between items-center">
-                                <span className="mr-2"> Token Standard </span>
-                                <span className="font-normal">
-                                    ERC-721
-                                </span>
+                            <div className="flex justify-between items-center md:mt-2">
+                                <span className="mr-2">Token Standard:</span>
+                                <span className="font-normal">ERC-721</span>
                             </div>
-                            <div className="flex justify-between items-center">
-                                <button
-                                    className="mt-4 px-6 py-3 bg-slate-900 text-white font-semibold rounded-md hover:bg-slate-950 transition"
+
+                            {/* Action Buttons */}
+                            <div className="flex flex-col md:flex-row justify-start items-stretch mt-4 space-y-2 md:space-y-0 md:space-x-2">
+                                {/* <button
+                                    className="w-full md:w-auto px-6 py-3 bg-slate-900 text-white font-semibold rounded-md hover:bg-slate-950 transition"
                                     onClick={() => handleCopy(nft)}
                                 >
                                     Copy Metadata
                                 </button>
-
                                 <button
-                                    className="flex items-center justify-center mt-4 px-6 py-3 bg-slate-900 text-white font-semibold rounded-md hover:bg-slate-950 transition"
+                                    className="w-full md:w-auto flex items-center justify-center px-6 py-3 bg-slate-900 text-white font-semibold rounded-md hover:bg-slate-950 transition"
                                     onClick={openLinkInNewTab}
                                 >
                                     Explorer <IoOpenOutline className="ml-1" />
-                                </button>
-
-                                {(!isPending && !hash && !nft.isSold) && <button
-                                    className="mt-4 px-6 py-3 bg-green-700 text-white font-semibold rounded-md hover:bg-green-800 transition"
-                                    onClick={() => handleBuy()}
-                                >
-                                    Buy
-                                </button>}
-                                {((hash && !isPending) || nft.isSold) && <button
-                                    className="mt-4 px-6 py-3 bg-red-700 text-white font-semibold rounded-md transition"
-                                >
-                                    SOLD
-                                </button>}
-                                {(isPending) &&
-                                    <div className="mt-4 px-6 py-3 bg-slate-800 text-white font-semibold rounded-md transition">
+                                </button> */}
+                                <div className="flex w-full md:w-auto space-x-2">
+                                    <button
+                                        className="flex-1 px-6 py-3 bg-slate-900 text-white font-semibold rounded-md hover:bg-slate-950 transition"
+                                        onClick={() => handleCopy(nft)}
+                                    >
+                                        Copy Metadata
+                                    </button>
+                                    <button
+                                        className="flex-1 flex items-center justify-center px-6 py-3 bg-slate-900 text-white font-semibold rounded-md hover:bg-slate-950 transition"
+                                        onClick={openLinkInNewTab}
+                                    >
+                                        Explorer <IoOpenOutline className="ml-1" />
+                                    </button>
+                                </div>
+                                {(!isPending && !hash && !nft.isSold) && (
+                                    <button
+                                        className="w-full md:w-auto px-6 py-3 bg-green-700 text-white font-semibold rounded-md hover:bg-green-800 transition"
+                                        onClick={() => handleBuy()}
+                                    >
+                                        Buy
+                                    </button>
+                                )}
+                                {((hash && !isPending) || nft.isSold) && (
+                                    <button
+                                        className="w-full md:w-auto px-6 py-3 bg-red-700 text-white font-semibold rounded-md transition"
+                                    >
+                                        SOLD
+                                    </button>
+                                )}
+                                {(isPending) && (
+                                    <div className="w-full md:w-auto px-6 py-3 bg-slate-800 text-white font-semibold rounded-md transition">
                                         <ThreeDot color="#2A6F97" size="small" />
                                     </div>
-                                }
+                                )}
                             </div>
                         </div>
                         <ToastContainer />
-
-
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
+
     );
 };
 
